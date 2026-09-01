@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Spatial Evaluation Studio</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three.module.min.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand-block">
+      <span class="brand-mark">VOG</span>
+      <div>
+        <strong>Spatial Evaluation Studio</strong>
+        <span>Multi-view spatial intelligence evaluation</span>
+      </div>
+    </div>
+    <div class="header-rule"></div>
+    <div class="benchmark-counts" id="benchmark-counts"></div>
+  </header>
+
+  <main>
+    <section class="overview-section" aria-labelledby="overview-title">
+      <div class="section-toolbar">
+        <div>
+          <p class="eyebrow">Model performance</p>
+          <h1 id="overview-title">Overall model performance</h1>
+        </div>
+        <label class="select-field metric-field">
+          <span>Ranking metric</span>
+          <select id="metric-select"></select>
+        </label>
+      </div>
+
+      <div class="overview-grid">
+        <section class="ranking-panel" aria-labelledby="ranking-title">
+          <div class="panel-heading">
+            <h2 id="ranking-title">Single-metric ranking</h2>
+            <span id="ranking-scope"></span>
+          </div>
+          <div class="ranking-list" id="ranking-list"></div>
+        </section>
+
+        <aside class="profile-panel" aria-labelledby="profile-title">
+          <div class="panel-heading">
+            <h2 id="profile-title">Model profile</h2>
+            <span class="model-kind" id="profile-kind"></span>
+          </div>
+          <div id="model-profile"></div>
+        </aside>
+      </div>
+
+      <section class="matrix-panel" aria-labelledby="matrix-title">
+        <div class="panel-heading matrix-heading">
+          <h2 id="matrix-title">Complete metric matrix</h2>
+          <span>Each metric uses its own color scale; best result outlined</span>
+        </div>
+        <div class="table-scroll">
+          <table class="metric-matrix" id="metric-matrix"></table>
+        </div>
+      </section>
+    </section>
+
+    <section class="scene-section" aria-labelledby="scene-title">
+      <div class="section-toolbar scene-section-toolbar">
+        <div>
+          <p class="eyebrow">Scene evidence & predictions</p>
+          <h1 id="scene-title">Scene and model interpretation</h1>
+        </div>
+        <label class="select-field scene-field">
+          <span>Example scene</span>
+          <select id="scene-select"></select>
+        </label>
+      </div>
+
+      <div class="scene-context">
+        <div class="scene-copy">
+          <strong id="scene-name"></strong>
+          <span id="scene-note"></span>
+        </div>
+        <div class="view-strip" id="view-list"></div>
+      </div>
+
+      <div class="ground-truth-layout">
+        <section class="reconstruction-panel" aria-label="Reconstructed 3D scene and evaluation target">
+          <div class="reconstruction-head">
+            <div>
+              <span class="small-label" id="renderer-label"></span>
+              <strong>Reconstructed scene with selected target</strong>
+            </div>
+            <div class="camera-actions">
+              <button type="button" id="first-view-camera">View 1</button>
+              <button type="button" id="overview-camera">Overview</button>
+            </div>
+          </div>
+          <div class="viewer-root" id="viewer-root">
+            <div class="loading-state" id="loading-state">
+              <span class="loading-spinner"></span>
+              <strong id="loading-label">Loading reconstructed 3D scene</strong>
+            </div>
+            <div class="scene-legend">
+              <span><i class="legend-line gt-line"></i>Ground Truth</span>
+              <span><i class="legend-line pred-line"></i><b id="overlay-model-name">Model prediction</b></span>
+            </div>
+          </div>
+        </section>
+
+        <aside class="object-panel" aria-labelledby="objects-title">
+          <div class="object-panel-head">
+            <div>
+              <span class="small-label">Evaluation objects</span>
+              <h2 id="objects-title">Objects in this scene</h2>
+            </div>
+            <span id="object-count"></span>
+          </div>
+          <div class="query-list" id="query-list"></div>
+        </aside>
+      </div>
+
+      <section class="prediction-section" aria-labelledby="prediction-title">
+        <div class="prediction-head">
+          <div>
+            <span class="small-label">Linked model scenes</span>
+            <h2 id="prediction-title">All model predictions for <strong id="prediction-target-title"></strong></h2>
+          </div>
+          <div class="prediction-target-gt" id="prediction-target-gt"></div>
+        </div>
+        <div class="prediction-legend">
+          <span><i class="legend-box selected-box"></i>Selected object</span>
+          <span><i class="legend-box context-box"></i>Other predicted objects</span>
+          <span>Shared +X / +Y / +Z code space</span>
+        </div>
+        <div class="model-scene-grid" id="model-scene-grid"></div>
+      </section>
+    </section>
+  </main>
+
+  <div class="fatal-error is-hidden" id="fatal-error"></div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
